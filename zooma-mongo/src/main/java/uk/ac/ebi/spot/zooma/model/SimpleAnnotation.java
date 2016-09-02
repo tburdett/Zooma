@@ -12,7 +12,7 @@ import java.util.HashSet;
  * Created by olgavrou on 02/08/2016.
  */
 @Document(collection = "annotations")
-public class SimpleAnnotation extends SimpleDocument implements Annotation {
+public class SimpleAnnotation extends AbstractIdentifiableDocument implements Annotation {
 
     @DBRef
     @CascadeSave

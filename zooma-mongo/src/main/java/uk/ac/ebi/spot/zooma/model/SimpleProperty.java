@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by olgavrou on 09/08/2016.
  */
 @Document(collection = "properties")
-public class SimpleProperty extends SimpleDocument implements Property{
+public class SimpleProperty extends AbstractIdentifiableDocument implements Property{
 
     private String propertyValue;
 

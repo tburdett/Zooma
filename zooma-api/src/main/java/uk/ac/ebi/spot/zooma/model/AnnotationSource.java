@@ -11,7 +11,7 @@ package uk.ac.ebi.spot.zooma.model;
  * @author Tony Burdett
  * @date 04/10/13
  */
-public interface AnnotationSource {
+public interface AnnotationSource extends Identifiable {
     /**
      * Returns the type of this annotation source
      *

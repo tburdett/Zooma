@@ -11,7 +11,7 @@ import java.util.HashSet;
  * Created by olgavrou on 04/08/2016.
  */
 @Document(collection = "biologicalEntities")
-public class SimpleBiologicalEntity extends SimpleDocument implements BiologicalEntity {
+public class SimpleBiologicalEntity extends AbstractIdentifiableDocument implements BiologicalEntity {
 
     private String name;
     @DBRef

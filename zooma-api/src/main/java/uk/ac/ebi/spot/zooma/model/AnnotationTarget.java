@@ -10,7 +10,7 @@ import java.util.Collection;
  * @author Simon Jupp
  * @date 07/10/2013 Functional Genomics Group EMBL-EBI
  */
-public interface AnnotationTarget {
+public interface AnnotationTarget extends Identifiable {
     /**
      * Returns the type that was assigned to this annotation target entity
      *

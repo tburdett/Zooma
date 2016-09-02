@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by olgavrou on 05/08/2016.
  */
 @Document(collection = "studies")
-public class SimpleStudy extends SimpleDocument implements Study {
+public class SimpleStudy extends AbstractIdentifiableDocument implements Study {
 
     private String accession;
     public SimpleStudy(String id, String accession) {

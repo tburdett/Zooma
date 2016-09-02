@@ -12,9 +12,17 @@ import java.net.URI;
  */
 public interface Identifiable extends Serializable {
     /**
+     * Returns the internal ID of this identifiable object. This will map to the final path of the URI if this
+     * identifiable object is identified under the Zooma namespace, but if this identifiable object has a pre-existing
+     *
+     * @return the internal Id
+     */
+    String getId();
+
+    /**
      * Returns the uniform resource identifier of this identifiable object.
      *
      * @return the URI of this entity
      */
-    URI getURI();
+    URI getUri();
 }
