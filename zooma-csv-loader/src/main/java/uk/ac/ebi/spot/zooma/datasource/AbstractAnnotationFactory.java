@@ -140,20 +140,20 @@ public abstract class AbstractAnnotationFactory<S extends AnnotationLoadingSessi
         }
         else {
             if (bioentityURI != null) {
-
                 be = getAnnotationLoadingSession().getOrCreateBiologicalEntity(bioentityName,
                                                                                bioentityURI.toString(),
-                                                                               null);
+                                                                               Collections.emptySet());
             }
             else {
                 if (bioentityID != null) {
                     be = getAnnotationLoadingSession().getOrCreateBiologicalEntity(bioentityName,
                                                                                    bioentityID,
-                                                                                   null);
+                                                                                   Collections.emptySet());
                 }
                 else {
                     if (bioentityName != null) {
-                        be = getAnnotationLoadingSession().getOrCreateBiologicalEntity(bioentityName, null);
+                        be = getAnnotationLoadingSession().getOrCreateBiologicalEntity(bioentityName,
+                                                                                       Collections.emptySet());
                     }
                     else {
                         be = null;
@@ -184,26 +184,26 @@ public abstract class AbstractAnnotationFactory<S extends AnnotationLoadingSessi
         if (annotationURI != null) {
             a = getAnnotationLoadingSession().getOrCreateAnnotation(
                     annotationURI,
-                    be != null ? Collections.singleton(be) : Collections.<BiologicalEntity>emptySet(),
+                    be != null ? Collections.singleton(be) : Collections.emptySet(),
                     p,
                     prov,
-                    semanticTag != null ? Collections.singleton(semanticTag) : Collections.<URI>emptySet());
+                    semanticTag != null ? Collections.singleton(semanticTag) : Collections.emptySet());
         }
         else {
             if (annotationID != null) {
                 a = getAnnotationLoadingSession().getOrCreateAnnotation(
                         annotationID,
-                        be != null ? Collections.singleton(be) : Collections.<BiologicalEntity>emptySet(),
+                        be != null ? Collections.singleton(be) : Collections.emptySet(),
                         p,
                         prov,
-                        semanticTag != null ? Collections.singleton(semanticTag) : Collections.<URI>emptySet());
+                        semanticTag != null ? Collections.singleton(semanticTag) : Collections.emptySet());
             }
             else {
                 a = getAnnotationLoadingSession().getOrCreateAnnotation(
-                        be != null ? Collections.singleton(be) : Collections.<BiologicalEntity>emptySet(),
+                        be != null ? Collections.singleton(be) : Collections.emptySet(),
                         p,
                         prov,
-                        semanticTag != null ? Collections.singleton(semanticTag) : Collections.<URI>emptySet());
+                        semanticTag != null ? Collections.singleton(semanticTag) : Collections.emptySet());
             }
         }
         return a;
