@@ -1,13 +1,26 @@
 package uk.ac.ebi.spot.zooma;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.ac.ebi.spot.zooma.model.*;
 import uk.ac.ebi.spot.zooma.config.MongoConfig;
+import uk.ac.ebi.spot.zooma.model.Annotation;
+import uk.ac.ebi.spot.zooma.model.AnnotationProvenance;
+import uk.ac.ebi.spot.zooma.model.AnnotationSource;
+import uk.ac.ebi.spot.zooma.model.BiologicalEntity;
+import uk.ac.ebi.spot.zooma.model.Property;
+import uk.ac.ebi.spot.zooma.model.SimpleAnnotation;
+import uk.ac.ebi.spot.zooma.model.SimpleAnnotationProvenance;
+import uk.ac.ebi.spot.zooma.model.SimpleBiologicalEntity;
+import uk.ac.ebi.spot.zooma.model.SimpleOntologyAnnotationSource;
+import uk.ac.ebi.spot.zooma.model.SimpleStudy;
+import uk.ac.ebi.spot.zooma.model.SimpleTypedProperty;
+import uk.ac.ebi.spot.zooma.model.Study;
 import uk.ac.ebi.spot.zooma.repositories.AnnotationRepository;
 import uk.ac.ebi.spot.zooma.repositories.BiologicalEntityRepository;
 import uk.ac.ebi.spot.zooma.repositories.PropertyRepository;
@@ -21,7 +34,8 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by olgavrou on 04/08/2016.
@@ -44,10 +58,10 @@ public class AnnotationRepositoryServiceIT {
     StudyRepository studyRepository;
 
     @Before
-    public void setup(){
+    public void setup() {
         //Create an Annotation and store it in mongodb
 
-        SimpleStudy simpleStudy = new SimpleStudy("SS1", "Accession1");
+        Study simpleStudy = new SimpleStudy("SS1", "Accession1");
 
         Collection<Study> studies = new ArrayList<>();
         studies.add(simpleStudy);
@@ -56,7 +70,7 @@ public class AnnotationRepositoryServiceIT {
         studies.add(simpleStudy);
 
         Collection<BiologicalEntity> biologicalEntities = new ArrayList<>();
-        SimpleBiologicalEntity biologicalEntity = new SimpleBiologicalEntity("BE1", "GSM374548", studies);
+        BiologicalEntity biologicalEntity = new SimpleBiologicalEntity("BE1", "GSM374548", studies);
         biologicalEntities.add(biologicalEntity);
         biologicalEntity = new SimpleBiologicalEntity("BE2", "newEntity", studies);
         biologicalEntities.add(biologicalEntity);
@@ -67,25 +81,29 @@ public class AnnotationRepositoryServiceIT {
         semanticTags.add(semanticTag);
 
         //create provenance
-        SimpleOntologyAnnotationSource annotationSource = new SimpleOntologyAnnotationSource(URI.create("http://www.ebi.ac.uk/gxa"), "atlas","","");
+        AnnotationSource annotationSource =
+                new SimpleOntologyAnnotationSource(URI.create("http://www.ebi.ac.uk/gxa"), "atlas", "", "");
 
-        SimpleAnnotationProvenance annotationProvenance = new SimpleAnnotationProvenance(annotationSource,
-                AnnotationProvenance.Evidence.MANUAL_CURATED,
-                AnnotationProvenance.Accuracy.NOT_SPECIFIED,
-                "http://www.ebi.ac.uk/gxa", new Date(), "Laura Huerta", new Date());
+        AnnotationProvenance annotationProvenance = new SimpleAnnotationProvenance(annotationSource,
+                                                                                   AnnotationProvenance.Evidence.MANUAL_CURATED,
+                                                                                   AnnotationProvenance.Accuracy.NOT_SPECIFIED,
+                                                                                   "http://www.ebi.ac.uk/gxa",
+                                                                                   new Date(),
+                                                                                   "Laura Huerta",
+                                                                                   new Date());
 
-        SimpleAnnotation annotationDocument = new SimpleAnnotation("TestStringId", biologicalEntities,
-                property,
-                semanticTags,
-                annotationProvenance,
-                null,
-                null);
+        Annotation annotationDocument = new SimpleAnnotation("TestStringId", biologicalEntities,
+                                                             property,
+                                                             semanticTags,
+                                                             annotationProvenance,
+                                                             null,
+                                                             null);
 
         annotationRepository.save(annotationDocument);
     }
 
     @After
-    public void teardown(){
+    public void teardown() {
 
         //remove property
         propertyRepository.delete(propertyRepository.findOne("TestProperty"));
@@ -99,7 +117,7 @@ public class AnnotationRepositoryServiceIT {
         biologicalEntityRepository.delete(biologicalEntityRepository.findOne("BE2"));
 
         //remove the annotation from the database
-        SimpleAnnotation annotationDocument = annotationRepository.findOne("TestStringId");
+        Annotation annotationDocument = annotationRepository.findOne("TestStringId");
 
         annotationRepository.delete(annotationDocument);
 
@@ -108,15 +126,17 @@ public class AnnotationRepositoryServiceIT {
 
     @Test
     public void testGetAllDocuments() throws Exception {
-        List<SimpleAnnotation> annotationDocumentList = annotationRepository.findAll();
+        List<Annotation> annotationDocumentList = annotationRepository.findAll();
         Collection<URI> sem = annotationDocumentList.get(0).getSemanticTags();
         assertThat("Not empty list", annotationDocumentList.size(), is(not(0)));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        SimpleAnnotation annotationDocument = annotationRepository.findOne("TestStringId");
-        annotationDocument.setAnnotatedProperty(new SimpleTypedProperty("TestProperty", "New Parameter", "New Value"));
+        Annotation annotationDocument = annotationRepository.findOne("TestStringId");
+        ((SimpleAnnotation) annotationDocument).setAnnotatedProperty(new SimpleTypedProperty("TestProperty",
+                                                                                             "New Parameter",
+                                                                                             "New Value"));
         annotationRepository.save(annotationDocument);
 
         annotationDocument = annotationRepository.findOne("TestStringId");
@@ -127,7 +147,7 @@ public class AnnotationRepositoryServiceIT {
     @Test
     public void testGetByAnnotatedProperty() throws Exception {
         Property property = new SimpleTypedProperty("TestProperty", "disease", "lung cancer");
-        SimpleAnnotation annotationDocument = annotationRepository.findByAnnotatedProperty(property);
+        Annotation annotationDocument = annotationRepository.findByAnnotatedProperty(property);
 
         assertThat("The Id is TestStringId", annotationDocument.getId(), is("TestStringId"));
     }
