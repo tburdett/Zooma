@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.ac.ebi.spot.model.*;
+import uk.ac.ebi.spot.zooma.model.*;
 import uk.ac.ebi.spot.zooma.config.MongoConfig;
+import uk.ac.ebi.spot.zooma.repositories.AnnotationRepository;
+import uk.ac.ebi.spot.zooma.repositories.BiologicalEntityRepository;
+import uk.ac.ebi.spot.zooma.repositories.PropertyRepository;
+import uk.ac.ebi.spot.zooma.repositories.StudyRepository;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -28,16 +32,16 @@ import static org.junit.Assert.*;
 public class AnnotationRepositoryServiceIT {
 
     @Autowired
-    AnnotationRepositoryService annotationRepositoryService;
+    AnnotationRepository annotationRepository;
 
     @Autowired
-    SimplePropertyService propertyService;
+    PropertyRepository propertyRepository;
 
     @Autowired
-    BiologicalEntityRepositoryService biologicalEntityRepositoryService;
+    BiologicalEntityRepository biologicalEntityRepository;
 
     @Autowired
-    StudyRepositoryService studyRepositoryService;
+    StudyRepository studyRepository;
 
     @Before
     public void setup(){
@@ -77,45 +81,45 @@ public class AnnotationRepositoryServiceIT {
                 null,
                 null);
 
-        annotationRepositoryService.save(annotationDocument);
+        annotationRepository.save(annotationDocument);
     }
 
     @After
     public void teardown(){
 
         //remove property
-        propertyService.delete(propertyService.get("TestProperty"));
+        propertyRepository.delete(propertyRepository.findOne("TestProperty"));
 
         //remove studies
-        studyRepositoryService.delete(studyRepositoryService.get("SS1"));
-        studyRepositoryService.delete(studyRepositoryService.get("SS2"));
+        studyRepository.delete(studyRepository.findOne("SS1"));
+        studyRepository.delete(studyRepository.findOne("SS2"));
 
         //remove biological entities
-        biologicalEntityRepositoryService.delete(biologicalEntityRepositoryService.get("BE1"));
-        biologicalEntityRepositoryService.delete(biologicalEntityRepositoryService.get("BE2"));
+        biologicalEntityRepository.delete(biologicalEntityRepository.findOne("BE1"));
+        biologicalEntityRepository.delete(biologicalEntityRepository.findOne("BE2"));
 
         //remove the annotation from the database
-        SimpleAnnotation annotationDocument = annotationRepositoryService.get("TestStringId");
+        SimpleAnnotation annotationDocument = annotationRepository.findOne("TestStringId");
 
-        annotationRepositoryService.delete(annotationDocument);
+        annotationRepository.delete(annotationDocument);
 
-        assertNull(annotationRepositoryService.get(annotationDocument.getId()));
+        assertNull(annotationRepository.findOne(annotationDocument.getId()));
     }
 
     @Test
     public void testGetAllDocuments() throws Exception {
-        List<SimpleAnnotation> annotationDocumentList = annotationRepositoryService.getAllDocuments();
+        List<SimpleAnnotation> annotationDocumentList = annotationRepository.findAll();
         Collection<URI> sem = annotationDocumentList.get(0).getSemanticTags();
         assertThat("Not empty list", annotationDocumentList.size(), is(not(0)));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        SimpleAnnotation annotationDocument = annotationRepositoryService.get("TestStringId");
+        SimpleAnnotation annotationDocument = annotationRepository.findOne("TestStringId");
         annotationDocument.setAnnotatedProperty(new SimpleTypedProperty("TestProperty", "New Parameter", "New Value"));
-        annotationRepositoryService.update(annotationDocument);
+        annotationRepository.save(annotationDocument);
 
-        annotationDocument = annotationRepositoryService.get("TestStringId");
+        annotationDocument = annotationRepository.findOne("TestStringId");
 
         assertThat("Value is New Value", annotationDocument.getAnnotatedProperty().getPropertyValue(), is("New Value"));
     }
@@ -123,7 +127,7 @@ public class AnnotationRepositoryServiceIT {
     @Test
     public void testGetByAnnotatedProperty() throws Exception {
         Property property = new SimpleTypedProperty("TestProperty", "disease", "lung cancer");
-        SimpleAnnotation annotationDocument = annotationRepositoryService.getByAnnotatedProperty(property);
+        SimpleAnnotation annotationDocument = annotationRepository.findByAnnotatedProperty(property);
 
         assertThat("The Id is TestStringId", annotationDocument.getId(), is("TestStringId"));
     }
