@@ -1,16 +1,16 @@
 package uk.ac.ebi.spot.zooma.builders;
 
 import uk.ac.ebi.spot.zooma.exception.TemplateBuildingException;
-import uk.ac.ebi.spot.model.AnnotationProvenance;
-import uk.ac.ebi.spot.model.AnnotationProvenanceTemplate;
-import uk.ac.ebi.spot.model.AnnotationSource;
-import uk.ac.ebi.spot.model.SimpleAnnotationProvenance;
+import uk.ac.ebi.spot.zooma.model.AnnotationProvenance;
+import uk.ac.ebi.spot.zooma.model.AnnotationProvenanceTemplate;
+import uk.ac.ebi.spot.zooma.model.AnnotationSource;
+import uk.ac.ebi.spot.zooma.model.SimpleAnnotationProvenance;
 
 import java.util.Date;
 
 /**
- * A builder for an {@link uk.ac.ebi.spot.model.AnnotationProvenance} instance.
- * Uses a {@link uk.ac.ebi.spot.model.AnnotationProvenanceTemplate} to populate the annotation source, generator and date
+ * A builder for an {@link uk.ac.ebi.spot.zooma.model.AnnotationProvenance} instance.
+ * Uses a {@link uk.ac.ebi.spot.zooma.model.AnnotationProvenanceTemplate} to populate the annotation source, generator and date
  *
  * @author Tony Burdett
  * @date 17/08/15

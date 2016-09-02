@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.model;
+package uk.ac.ebi.spot.zooma.model;
 
 /**
  * A ZOOMA prediction for a new annotation, based on a search and the best available matched existing annotation ZOOMA

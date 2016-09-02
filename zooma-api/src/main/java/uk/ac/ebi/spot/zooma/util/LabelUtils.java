@@ -1,7 +1,5 @@
 package uk.ac.ebi.spot.zooma.util;
 
-import uk.ac.ebi.spot.zooma.datasource.OntologyDAO;
-
 import java.net.URI;
 
 /**
@@ -11,19 +9,15 @@ import java.net.URI;
  * @date 08/11/2012 Functional Genomics Group EMBL-EBI
  */
 public class LabelUtils {
-    private static OntologyDAO ontologyDAO;
+    private final OntologyUtils ontologyUtils;
 
-    public OntologyDAO getOntologyDAO() {
-        return ontologyDAO;
+    public LabelUtils(OntologyUtils ontologyUtils) {
+        this.ontologyUtils = ontologyUtils;
     }
 
-    public void setOntologyDAO(OntologyDAO ontologyDAO) {
-        LabelUtils.ontologyDAO = ontologyDAO;
-    }
-
-    public static String getPrimaryLabel(URI concept) {
-        if (ontologyDAO != null) {
-            return ontologyDAO.getSemanticTagLabel(concept);
+    public String getPrimaryLabel(URI concept) {
+        if (ontologyUtils != null) {
+            return ontologyUtils.getSemanticTagLabel(concept);
         }
         else {
             throw new IllegalStateException("Unable to perform label lookup - no OntologyDAO has been set");

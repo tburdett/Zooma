@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.spot.zooma.datasource.AnnotationFactory;
 import uk.ac.ebi.spot.zooma.datasource.AnnotationLoadingSession;
-import uk.ac.ebi.spot.model.*;
+import uk.ac.ebi.spot.zooma.model.*;
 
 import java.net.URI;
 import java.util.*;

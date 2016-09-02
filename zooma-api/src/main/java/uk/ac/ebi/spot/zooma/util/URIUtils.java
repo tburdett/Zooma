@@ -2,7 +2,6 @@ package uk.ac.ebi.spot.zooma.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.ebi.spot.zooma.datasource.ZoomaDAO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -509,54 +508,6 @@ public class URIUtils {
 
     public static URI normalizeURI(URI uri) {
         return normalizeURI(uri.toString());
-    }
-
-    /**
-     * Mints new URIs that are derived from an original copy.  Essentially, this involves adding "_1" to the end of the
-     * original URI, or, if the original URI already ends with a revised version number, then incrementing that number.
-     * <p/>
-     * This method takes an {@link ZoomaDAO} as this is required in order to attempt to resolve the newly created URI:
-     * if it already exists, then this method will continually increment until it locates a URI that does not exist in
-     * ZOOMA>
-     *
-     * @param dao the DAO to use to attempt to resolve newly created URI against (so as not to create duplicates by
-     *            mistake)
-     * @param uri the URI of the original entity that will be updated
-     * @return a newly minted URI derived from the first
-     */
-    public static URI incrementURI(ZoomaDAO dao, URI uri) {
-        getLog().trace("Coining new URI for '" + uri + "' - updates have occurred");
-        URI lookupURI = uri;
-
-        while (dao.read(lookupURI) != null) {
-            // is original URI already an incremented form?
-            if (lookupURI.toString().contains("_")) {
-                String corePart = lookupURI.toString().substring(0, lookupURI.toString().lastIndexOf("_"));
-                String lastPart = lookupURI.toString().replaceAll(corePart + "_", "");
-                try {
-                    // deconstruct old URI
-                    int number = Integer.parseInt(lastPart);
-                    number++;
-
-                    // construct new URI
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(corePart).append("_").append(number);
-                    lookupURI = URI.create(sb.toString());
-                }
-                catch (NumberFormatException e) {
-                    // failed to parse last element of the URI as a number - create new incrementor
-                    lookupURI = URI.create(uri.toString() + "_1");
-                }
-            }
-            else {
-                lookupURI = URI.create(uri.toString() + "_1");
-            }
-        }
-
-        // exit while loop once lookup URI is null, which means it could not be found in ZOOMA, so return
-        getLog().debug("Found URI that has not yet been assigned: " + lookupURI);
-        return lookupURI;
-
     }
 
     /**

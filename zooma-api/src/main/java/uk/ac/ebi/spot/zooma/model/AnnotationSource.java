@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.model;
+package uk.ac.ebi.spot.zooma.model;
 
 /**
  * A representation of the "source" from which an annotation was obtained.  This will normally be a database or an

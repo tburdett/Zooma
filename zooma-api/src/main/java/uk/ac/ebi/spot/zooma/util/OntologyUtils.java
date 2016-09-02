@@ -1,5 +1,4 @@
-package uk.ac.ebi.spot.zooma.datasource;
-
+package uk.ac.ebi.spot.zooma.util;
 
 import java.net.URI;
 import java.util.Set;
@@ -10,7 +9,7 @@ import java.util.Set;
  * @author Tony Burdett
  * @date 13/09/12
  */
-public interface OntologyDAO {
+public interface OntologyUtils {
     /**
      * Retrieves the rdfs:label annotation on the ontology class with the given URI, if available, or an empty string if
      * there is no such label.
@@ -23,8 +22,8 @@ public interface OntologyDAO {
     /**
      * Retrieves annotations that represent synonyms on the ontology class with the given URI.  Unlike labels, there is
      * no standard implementation in rdfs to describe synonyms so different implementations may use different annotation
-     * types for this method.  Usually, this will delegate to {@link #getSemanticTagSynonyms(java.net.URI,
-     * java.net.URI)} supplying a sensible default.
+     * types for this method.  Usually, this will delegate to {@link #getSemanticTagSynonyms(URI,
+     * URI)} supplying a sensible default.
      *
      * @param semanticTagURI the URI of the ontology class to retrieve the synonym for
      * @return a set of synonyms

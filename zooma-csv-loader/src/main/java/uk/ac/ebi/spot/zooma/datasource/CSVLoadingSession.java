@@ -1,8 +1,8 @@
 package uk.ac.ebi.spot.zooma.datasource;
 
 import uk.ac.ebi.spot.zooma.builders.AnnotationProvenanceBuilder;
-import uk.ac.ebi.spot.model.AnnotationProvenance;
-import uk.ac.ebi.spot.model.SimpleDatabaseAnnotationSource;
+import uk.ac.ebi.spot.zooma.model.AnnotationProvenance;
+import uk.ac.ebi.spot.zooma.model.SimpleDatabaseAnnotationSource;
 
 import java.net.URI;
 import java.util.Date;

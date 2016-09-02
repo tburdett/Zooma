@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import uk.ac.ebi.spot.zooma.datasource.AnnotationFactory;
 import uk.ac.ebi.spot.zooma.exception.InvalidDataFormatException;
-import uk.ac.ebi.spot.model.Annotation;
+import uk.ac.ebi.spot.zooma.model.Annotation;
 
 /**
  * A loader for CSV files

@@ -2,7 +2,7 @@ package uk.ac.ebi.spot.zooma.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.ebi.spot.model.AnnotationSummary;
+import uk.ac.ebi.spot.zooma.model.AnnotationSummary;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -125,7 +125,7 @@ public class ZoomaUtils {
      * @return a filtered set of annotations, only including those that scored inside the confidence interval
      */
     public static List<AnnotationSummary> filterAnnotationSummaries(Map<AnnotationSummary, Float> summaries,
-                                                                   float cutoffPercentage) {
+                                                                    float cutoffPercentage) {
         return filterAnnotationSummaries(summaries, 0, cutoffPercentage);
 
     }

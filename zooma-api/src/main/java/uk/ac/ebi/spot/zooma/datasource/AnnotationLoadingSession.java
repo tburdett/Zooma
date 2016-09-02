@@ -1,6 +1,8 @@
 package uk.ac.ebi.spot.zooma.datasource;
 
 
+import uk.ac.ebi.spot.zooma.model.*;
+
 import java.net.URI;
 import java.util.Collection;
 import java.util.Date;

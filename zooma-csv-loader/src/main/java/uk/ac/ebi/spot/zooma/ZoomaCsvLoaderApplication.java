@@ -6,10 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import uk.ac.ebi.spot.zooma.repositories.AnnotationRepository;
 import uk.ac.ebi.spot.zooma.service.CSVLoader;
-import uk.ac.ebi.spot.model.Annotation;
-import uk.ac.ebi.spot.model.SimpleAnnotation;
-import uk.ac.ebi.spot.zooma.services.AnnotationRepositoryService;
+import uk.ac.ebi.spot.zooma.model.Annotation;
+import uk.ac.ebi.spot.zooma.model.SimpleAnnotation;
 
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +22,7 @@ public class ZoomaCsvLoaderApplication {
 	private Collection<CSVLoader> csvLoaders;
 
 	@Autowired
-	AnnotationRepositoryService annotationRepositoryService;
+	AnnotationRepository annotationRepository;
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(ZoomaCsvLoaderApplication.class, args);
@@ -38,7 +38,7 @@ public class ZoomaCsvLoaderApplication {
 				List<Annotation> annotationList = loader.load();
 				for (Annotation annotation : annotationList) {
 					SimpleAnnotation simpleAnnotation = (SimpleAnnotation) annotation;
-					annotationRepositoryService.save(simpleAnnotation);
+					annotationRepository.save(simpleAnnotation);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

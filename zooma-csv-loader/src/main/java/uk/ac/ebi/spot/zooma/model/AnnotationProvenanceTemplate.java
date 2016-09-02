@@ -1,9 +1,9 @@
-package uk.ac.ebi.spot.model;
+package uk.ac.ebi.spot.zooma.model;
 
 import java.util.Date;
 
 /**
- * A templating interface for {@link uk.ac.ebi.spot.model.AnnotationProvenance} objects.  This interface declares
+ * A templating interface for {@link uk.ac.ebi.spot.zooma.model.AnnotationProvenance} objects.  This interface declares
  * the {@link #build()} method, which allows implementations of this template to generate and return completed
  * annotation provenances having set up an initial set of variables.  This method also declares methods to update or
  * override a series of pre-initialized values on the template.
@@ -55,7 +55,7 @@ public interface AnnotationProvenanceTemplate extends AnnotationProvenance {
     AnnotationProvenanceTemplate accuracyIs(Accuracy accuracy);
 
     /**
-     * Returns a completed, "concrete" instance of an {@link uk.ac.ebi.spot.model.AnnotationProvenance} object,
+     * Returns a completed, "concrete" instance of an {@link uk.ac.ebi.spot.zooma.model.AnnotationProvenance} object,
      * generated from this template
      *
      * @return a completed instance of an annotation provenance object, generated from this template

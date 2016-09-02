@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.model;
+package uk.ac.ebi.spot.zooma.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

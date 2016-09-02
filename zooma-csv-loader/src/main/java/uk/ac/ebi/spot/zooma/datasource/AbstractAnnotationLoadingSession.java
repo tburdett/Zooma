@@ -3,9 +3,9 @@ package uk.ac.ebi.spot.zooma.datasource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.spot.zooma.Namespaces;
-import uk.ac.ebi.spot.model.*;
+import uk.ac.ebi.spot.zooma.model.*;
 import uk.ac.ebi.spot.zooma.util.ZoomaUtils;
-import uk.ac.ebi.spot.zooma.utils.TransientCacheable;
+import uk.ac.ebi.spot.zooma.util.TransientCacheable;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;

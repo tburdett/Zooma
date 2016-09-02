@@ -2,7 +2,7 @@ package uk.ac.ebi.spot.zooma.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import uk.ac.ebi.spot.model.SimpleStudy;
+import uk.ac.ebi.spot.zooma.model.SimpleStudy;
 
 /**
  * Created by olgavrou on 05/08/2016.
