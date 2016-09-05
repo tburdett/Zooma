@@ -6,7 +6,6 @@ import java.util.Date;
  * Created by olgavrou on 04/08/2016.
  */
 public class SimpleAnnotationProvenance implements AnnotationProvenance {
-
     private final AnnotationSource source;
 
     private final Evidence evidence;

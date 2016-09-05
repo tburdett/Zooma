@@ -13,11 +13,24 @@ public abstract class AbstractIdentifiableDocument implements Identifiable {
 
     private URI uri;
 
-    public AbstractIdentifiableDocument(URI uri) {
-
+    AbstractIdentifiableDocument() {
+        // uri will be assigned from id
     }
 
-    public URI getUri() {
+    AbstractIdentifiableDocument(String id) {
+        this.id = id;
+    }
+
+    AbstractIdentifiableDocument(String id, URI uri) {
+        this(id);
+        this.uri = uri;
+    }
+
+    @Override public String getId() {
+        return id;
+    }
+
+    @Override public URI getUri() {
         return this.uri;
     }
 }

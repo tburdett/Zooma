@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "studies")
 public class SimpleStudy extends AbstractIdentifiableDocument implements Study {
-
     private String accession;
+
     public SimpleStudy(String id, String accession) {
         super(id);
         this.accession = accession;

@@ -12,7 +12,6 @@ import java.util.HashSet;
  */
 @Document(collection = "biologicalEntities")
 public class SimpleBiologicalEntity extends AbstractIdentifiableDocument implements BiologicalEntity {
-
     private String name;
     @DBRef
     @CascadeSave

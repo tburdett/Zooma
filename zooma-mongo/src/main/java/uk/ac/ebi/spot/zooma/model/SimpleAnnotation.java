@@ -13,7 +13,6 @@ import java.util.HashSet;
  */
 @Document(collection = "annotations")
 public class SimpleAnnotation extends AbstractIdentifiableDocument implements Annotation {
-
     @DBRef
     @CascadeSave
     private Collection<BiologicalEntity> annotatedBiologicalEntities;
@@ -25,8 +24,8 @@ public class SimpleAnnotation extends AbstractIdentifiableDocument implements An
     private Collection<URI> replacedBy;
     private Collection<URI> replaces;
 
-
-    public SimpleAnnotation(String id, Collection<BiologicalEntity> annotatedBiologicalEntities,
+    public SimpleAnnotation(String id,
+                            Collection<BiologicalEntity> annotatedBiologicalEntities,
                             Property annotatedProperty,
                             Collection<URI> semanticTags,
                             AnnotationProvenance provenance,

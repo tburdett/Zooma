@@ -5,12 +5,10 @@ import java.net.URI;
 /**
  * Created by olgavrou on 04/08/2016.
  */
-public class SimpleAnnotationSource implements AnnotationSource {
-
+public class SimpleAnnotationSource extends AbstractIdentifiableDocument implements AnnotationSource {
     private URI source;
     private Type type;
     private String name;
-
 
     public SimpleAnnotationSource(URI source, String name, Type type) {
         this.source = source;
@@ -18,20 +16,17 @@ public class SimpleAnnotationSource implements AnnotationSource {
         this.type = type;
     }
 
-
     @Override public Type getType() {
         return type;
     }
 
-    @Override
-    public String getName() {
+    @Override public String getName() {
         return name;
     }
 
     public URI getSource() { return source; }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "SimpleAnnotationSource{" +
                 "source=" + source +
                 ", type=" + type +
